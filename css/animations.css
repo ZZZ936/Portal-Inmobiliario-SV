@@ -1,0 +1,333 @@
+/*=========================
+REVEAL
+=========================*/
+
+.reveal-fade{
+
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+
+    opacity .9s ease,
+
+    transform .9s ease;
+
+}
+
+.reveal-slide{
+
+    opacity:0;
+
+    transform:translateX(-45px);
+
+    transition:
+
+    opacity .9s ease,
+
+    transform .9s ease;
+
+}
+
+.visible{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/*=========================
+BUTTONS
+=========================*/
+
+.btn{
+
+    transition:
+
+    transform .35s,
+
+    box-shadow .35s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/*=========================
+CARDS
+=========================*/
+
+.service-card,
+
+.testimonial-card{
+
+    transition:
+
+    transform .45s,
+
+    box-shadow .45s;
+
+}
+
+.service-card:hover,
+
+.testimonial-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+    0 35px 70px rgba(0,0,0,.12);
+
+}
+
+/*=========================
+IMAGES
+=========================*/
+
+.arch-img-main img,
+
+.masonry-item img{
+
+    transition:
+
+    transform 1.2s ease;
+
+}
+
+
+.arch-img-main:hover img,
+
+.masonry-item:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/*=========================
+SCROLL
+=========================*/
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+/*==================================================
+SEARCH RESULTS
+==================================================*/
+
+.search-result{
+
+    padding:1rem 0;
+
+    border-bottom:1px solid rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.search-result:hover{
+
+    padding-left:.75rem;
+
+}
+
+.search-result h4{
+
+    margin-bottom:.3rem;
+
+}
+
+.search-result p{
+
+    color:var(--color-muted);
+
+    margin-bottom:.35rem;
+
+}
+
+/* ==========================================
+   Scroll Reveal
+========================================== */
+
+.reveal-fade,
+.reveal-slide{
+
+    opacity:0;
+
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+
+}
+
+.reveal-fade{
+
+        opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+}
+
+.reveal-slide{
+
+        opacity:0;
+
+    transform:translateX(-60px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+
+
+}
+
+.reveal-fade.visible,
+.reveal-slide.visible{
+
+     opacity:1;
+
+    transform:none;
+
+}
+
+/* ==========================================
+   Counter Animation
+========================================== */
+
+.metric-number,
+.stat-number{
+
+    transition:color .3s;
+
+}
+
+/* ==========================================
+   Hover Images
+========================================== */
+
+.masonry-item img,
+.arch-img-main img{
+
+    will-change:transform;
+
+}
+/*==============================
+HERO SLIDER
+==============================*/
+
+.hero-slide{
+
+    opacity:0;
+
+    transition:
+        opacity 1.5s ease,
+        transform 8s linear;
+
+    transform:scale(1.05);
+
+}
+
+.hero-slide.active{
+
+    opacity:1;
+
+}
+
+.hero-bg-wrapper{
+
+    overflow:hidden;
+
+}
+
+/*==============================
+PARALLAX
+==============================*/
+
+.hero-bg-wrapper{
+
+    will-change:transform;
+
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.hero-overlay{
+
+    z-index:1;
+
+}
+
+/* ==========================================================
+   Gallery Hover
+========================================================== */
+
+.masonry-item{
+    position:relative;
+    overflow:hidden;
+    border-radius:24px;
+    cursor:pointer;
+}
+
+.masonry-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:
+        transform .8s ease,
+        filter .6s ease;
+}
+
+.masonry-item:hover img,
+.masonry-item.is-hover img{
+    transform:scale(1.08);
+    filter:brightness(.85);
+}
+
+.masonry-caption{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:2rem;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(0,0,0,.7)
+    );
+
+    transform:translateY(25px);
+
+    opacity:0;
+
+    transition:.5s;
+}
+
+.masonry-item:hover .masonry-caption,
+.masonry-item.is-hover .masonry-caption{
+    opacity:1;
+    transform:translateY(0);
+}
