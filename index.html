@@ -11,8 +11,10 @@
     >
 
     <title>
-        Portal Inmobiliario SV | Luxury Real Estate & Sustainable Architecture
+        Portal Inmobiliario SV 
     </title>
+
+    <link rel="icon" type="image/png" href="assets/images/isotipo.png">
 
 
     <!-- ================================================================
@@ -281,6 +283,16 @@
                             data-section="properties"
                         >
                             Propiedades
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#portfolio"
+                            class="nav-link"
+                            data-section="portfolio"
+                        >
+                            Portafolio
                         </a>
                     </li>
 
@@ -630,7 +642,7 @@
                             <div class="arch-img-float">
 
                                 <img
-                                    src="assets/images/Tarjeta1.svg"
+                                    src="assets/images/ab-detail.png"
                                     alt="Detalle minimalista interior"
                                     loading="lazy"
                                 >
@@ -838,91 +850,113 @@
 
 </section>
 
+<!-- ============================================================
+     PROPERTIES
+     Catálogo dinámico
+============================================================= -->
+<section class="properties-section section-padding" id="properties">
 
-        <!-- ============================================================
-             PROPERTIES
-             Actualmente sin catálogo
-        ============================================================= -->
+    <div class="container">
 
-        <section
-            class="properties-section section-padding"
-            id="properties"
-        >
+        <!-- ENCABEZADO -->
+        <div class="section-header text-center">
+            <span class="section-tag">Propiedades</span>
+            <h2 class="section-title">Espacios seleccionados para ti</h2>
+            <p class="section-subtitle">
+                Descubre propiedades cuidadosamente seleccionadas en las mejores ubicaciones de El Salvador.
+            </p>
+        </div>
 
-            <div class="container">
+        <!-- FILTROS DE CATEGORÍA -->
+        <div class="properties-filters" id="propertiesFilters">
+            <button type="button" class="property-filter active" data-filter="all">Todas</button>
+            <button type="button" class="property-filter" data-filter="Casa">Casas</button>
+            <button type="button" class="property-filter" data-filter="Apartamento">Apartamentos</button>
+            <button type="button" class="property-filter" data-filter="Terreno">Terrenos</button>
+            <button type="button" class="property-filter" data-filter="Comercial">Comercial</button>
+        </div>
 
-
-                <div class="section-header text-center">
-
-                    <span class="section-tag">
-                        Propiedades
-                    </span>
-
-
-                    <h2 class="section-title">
-
-                        Encuentra el espacio ideal para ti
-
-                    </h2>
-
-
-                    <p class="section-subtitle">
-
-                        Nuestro catálogo de propiedades se encuentra
-                        actualmente en actualización.
-
-                    </p>
-
-                </div>
-
-
-                <div class="properties-contact-card">
-
-
-                    <div class="properties-contact-content">
-
-
-                        <span class="section-tag">
-                            Atención personalizada
-                        </span>
-
-
-                        <h3>
-
-                            ¿Buscas una propiedad específica?
-
-                        </h3>
-
-
-                        <p>
-
-                            Aunque nuestro catálogo digital se encuentra
-                            en actualización, podemos ayudarte a encontrar
-                            una propiedad que se ajuste a tus necesidades.
-                            Contáctanos y cuéntanos qué estás buscando.
-
-                        </p>
-
-
-                        <a
-                            href="#contact"
-                            class="btn btn-primary"
-                        >
-
-                            Contáctanos
-
-                        </a>
-
-
-                    </div>
-
-
-                </div>
-
+        <!-- CATÁLOGO DINÁMICO -->
+        <div class="properties-grid" id="propertiesGrid">
+            <div class="properties-loading">
+                <span></span>
+                <p>Cargando propiedades...</p>
             </div>
+        </div>
 
-        </section>
+        <!-- ESTADO VACÍO / CATÁLOGO OCULTO -->
+        <div class="properties-empty" id="propertiesEmpty" hidden>
+            <div class="empty-icon">
+                <i class="ph ph-house-line"></i>
+            </div>
+            <h3>Catálogo en actualización</h3>
+            <p id="emptyMessageText">
+                Aunque nuestro catálogo digital se encuentra en actualización, podemos ayudarte a encontrar una propiedad que se ajuste a tus necesidades. Contáctanos y cuéntanos qué estás buscando.
+            </p>
+            <a href="#contact" class="btn btn-primary">Contáctanos</a>
+        </div>
 
+        <!-- CONTACTO PARA BÚSQUEDAS PERSONALIZADAS -->
+        <div class="properties-contact-card" id="propertiesContactCard">
+            <div class="properties-contact-content">
+                <span class="section-tag">Atención personalizada</span>
+                <h3>¿Buscas una propiedad específica?</h3>
+                <p>
+                    Si no encuentras lo que buscas en nuestro catálogo, podemos ayudarte a encontrar una propiedad que se ajuste a tus necesidades. Contáctanos y cuéntanos qué estás buscando.
+                </p>
+                <a href="#contact" class="btn btn-primary">Contáctanos</a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MODAL / VIEWER PARA GALERÍA (HASTA 15 MULTIMEDIA) -->
+<div class="property-modal" id="propertyModal" aria-hidden="true" hidden>
+    <div class="modal-overlay" data-close-modal></div>
+    <div class="modal-container">
+        <button type="button" class="modal-close" data-close-modal aria-label="Cerrar">&times;</button>
+        
+        <div class="modal-body" id="modalPropertyDetails">
+            <!-- El contenido dinámico de la galería y detalles de la propiedad se inyectará mediante JS -->
+        </div>
+    </div>
+</div>
+
+<section
+    class="portfolio-section section-padding"
+    id="portfolio"
+>
+
+    <div class="container">
+
+        <div class="section-header text-center">
+
+            <span class="section-tag">
+                Portafolio
+            </span>
+
+            <h2 class="section-title">
+                Proyectos realizados
+            </h2>
+
+            <p class="section-subtitle">
+                Conoce nuestros proyectos y desarrollos destacados.
+            </p>
+
+        </div>
+
+        <!-- AQUÍ IRÁN LOS PROYECTOS -->
+        <div
+            class="portfolio-grid"
+            id="portfolioGrid"
+        >
+        </div>
+
+    </div>
+
+</section>
 
         <!-- ============================================================
              STATISTICS
@@ -1285,7 +1319,7 @@
 
     <div class="contact-detail-item">
         <strong>Correo Electrónico:</strong><br>
-        <a href="mailto:portalinmobiliariosv@gmail.com" class="contact-link">portalinmobiliariosv@gmail.com</a>
+        <a href="mailto:pinmobiliariosv@gmail.com" class="contact-link">pinmobiliariosv@gmail.com</a>
     </div>
 
 </div>
@@ -1602,31 +1636,21 @@
 
                         <li>
                             <a
-                                href="#"
+                                href="https://www.facebook.com/portalinmobiliariosv0/"
                                 target="_blank"
                                 rel="noopener"
                             >
-                                Instagram
+                                Facebook
                             </a>
                         </li>
 
                         <li>
                             <a
-                                href="#"
+                                href="https://wa.me/50368467974"
                                 target="_blank"
                                 rel="noopener"
                             >
-                                LinkedIn
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="#"
-                                target="_blank"
-                                rel="noopener"
-                            >
-                                ArchDaily Profile
+                                Whatsapp
                             </a>
                         </li>
 
@@ -1720,6 +1744,10 @@
         src="js/main.js"
     ></script>
 
+<!-- 1. CDN oficial de Supabase -->
+<script 
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 
 </body>
 
