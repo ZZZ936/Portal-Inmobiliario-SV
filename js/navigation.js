@@ -1,138 +1,155 @@
 /**
  * ============================================================================
- * navigation.js
+ * search.js
  * ============================================================================
  */
 
 import {
     select,
-    selectAll,
     on,
     lockScroll,
-    unlockScroll,
-    scrollToElement
-} from './utils.js';
+    unlockScroll
+} from "./utils.js";
 
-import { SELECTORS, CLASSES, UI } from './config.js';
 
-export function initNavigation() {
+export const initSearch = () => {
 
-    const header = select(SELECTORS.header);
-    const menu = select(SELECTORS.navMenu);
-    const toggle = select(SELECTORS.navToggle);
-    const overlay = select(SELECTORS.navOverlay);
-    const links = selectAll(SELECTORS.navLinks);
+    const trigger = select("#searchTrigger");
 
-    const updateHeader = () => {
+    const modal = select("#searchModal");
 
-        header?.classList.toggle(
-            CLASSES.STICKY,
-            window.scrollY > 25
+    const backdrop = select("#modalBackdrop");
+
+    const closeBtn = select("#closeSearchBtn");
+
+    const input = select("#globalSearchInput");
+
+    const contactLink = select("#searchContactLink");
+
+
+    /* ==========================
+       VALIDATION
+    ========================== */
+
+    if (
+        !trigger ||
+        !modal ||
+        !backdrop ||
+        !closeBtn
+    ) {
+
+        console.warn(
+            "Buscador: faltan elementos en el HTML."
         );
 
-    };
+        return;
 
-    on(window, 'scroll', updateHeader, { passive: true });
-    updateHeader();
+    }
 
-    const openMenu = () => {
 
-        if (!menu) return;
+    /* ==========================
+       OPEN
+    ========================== */
 
-        menu.classList.add(CLASSES.OPEN);
-        overlay?.classList.add(CLASSES.OPEN);
-        toggle?.setAttribute('aria-expanded', 'true');
+    const openSearch = () => {
+
+        modal.classList.add("active");
+
+        backdrop.classList.add("active");
 
         lockScroll();
 
+
+        setTimeout(() => {
+
+            input?.focus();
+
+        }, 150);
+
     };
 
-    const closeMenu = () => {
 
-        if (!menu) return;
+    /* ==========================
+       CLOSE
+    ========================== */
 
-        menu.classList.remove(CLASSES.OPEN);
-        overlay?.classList.remove(CLASSES.OPEN);
-        toggle?.setAttribute('aria-expanded', 'false');
+    const closeSearch = () => {
+
+        modal.classList.remove("active");
+
+        backdrop.classList.remove("active");
 
         unlockScroll();
 
+
+        if (input) {
+
+            input.value = "";
+
+        }
+
     };
 
-    on(toggle, 'click', () => {
 
-        menu?.classList.contains(CLASSES.OPEN)
-            ? closeMenu()
-            : openMenu();
+    /* ==========================
+       EVENTS
+    ========================== */
 
-    });
-
-    on(overlay, 'click', closeMenu);
-
-    links.forEach(link => {
-
-        on(link, 'click', event => {
-
-            const href = link.getAttribute('href');
-
-            closeMenu();
-
-            if (!href?.startsWith('#')) return;
-
-            const target = select(href);
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            scrollToElement(target, UI.scrollOffset);
-
-        });
-
-    });
-
-    on(document, 'keydown', event => {
-
-        if (event.key === 'Escape') {
-            closeMenu();
-        }
-
-    });
-
-    const sections = selectAll('section[id]');
-
-    if (!sections.length || !links.length) return;
-
-    const observer = new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting) return;
-
-                const id = entry.target.id;
-
-                links.forEach(link => {
-
-                    link.classList.toggle(
-                        CLASSES.ACTIVE,
-                        link.getAttribute('href') === `#${id}`
-                    );
-
-                });
-
-            });
-
-        },
-
-        {
-            threshold: 0.3,
-            rootMargin: '-120px 0px -40% 0px'
-        }
-
+    on(
+        trigger,
+        "click",
+        openSearch
     );
 
-    sections.forEach(section => observer.observe(section));
 
-}
+    on(
+        closeBtn,
+        "click",
+        closeSearch
+    );
+
+
+    on(
+        backdrop,
+        "click",
+        closeSearch
+    );
+
+
+    on(
+        contactLink,
+        "click",
+        closeSearch
+    );
+
+
+    on(
+        document,
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains("active")
+            ) {
+
+                closeSearch();
+
+            }
+
+
+            if (
+                (event.ctrlKey || event.metaKey) &&
+                event.key.toLowerCase() === "k"
+            ) {
+
+                event.preventDefault();
+
+                openSearch();
+
+            }
+
+        }
+    );
+
+};
