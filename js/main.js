@@ -24,6 +24,10 @@ import {
     initUI
 } from "./ui.js";
 
+import {
+    initProperties
+} from "./properties.js";
+
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -39,6 +43,7 @@ document.addEventListener(
 
         initUI();
 
+        initProperties();
 
         console.log(
             "Portal Inmobiliario SV iniciado correctamente."
