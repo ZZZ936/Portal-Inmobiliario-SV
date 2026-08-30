@@ -1,0 +1,246 @@
+<!-- admin/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Inmobiliario SV — Panel de Control</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/isotipo.png">
+</head>
+<body>
+
+  <section id="admin-login" class="admin-login" aria-labelledby="admin-login-title">
+    <form id="admin-login-form" class="admin-login-card">
+      <img src="assets/isotipo.png" alt="Portal Inmobiliario SV" class="admin-login-logo">
+      <span class="badge-subtitle">Acceso privado</span>
+      <h1 id="admin-login-title">Panel de Control</h1>
+      <p>Ingresa con la cuenta administradora.</p>
+
+      <label for="admin-email">Correo electrónico</label>
+      <input id="admin-email" type="email" class="form-control" required autocomplete="email">
+
+      <label for="admin-password">Contraseña</label>
+      <input id="admin-password" type="password" class="form-control" required autocomplete="current-password">
+
+      <p id="admin-login-error" class="admin-login-error" role="alert"></p>
+      <button id="admin-login-submit" type="submit" class="btn btn-primary btn-full">Ingresar</button>
+    </form>
+  </section>
+
+  <!-- Encabezado Principal Fijo -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="brand">
+        <a href="#" class="admin-brand">
+          <img src="../assets/images/isotipo.png" alt="Portal Inmobiliario SV" class="admin-logo">
+          <span class="admin-brand-title">Portal Inmobiliario SV</span>
+          <span class="badge-subtitle">Panel de Control</span>
+        </a>
+      </div>
+      <div class="admin-header-actions">
+        <button id="btn-open-modal" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Nueva Propiedad
+        </button>
+        <button id="btn-logout" type="button" class="btn btn-secondary btn-sm">
+          Salir
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal del Dashboard -->
+  <main class="admin-container">
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h2>Catálogo de Propiedades</h2>
+          <p class="text-muted">Gestiona la visibilidad y detalles del inventario en tiempo real.</p>
+        </div>
+        <div class="filter-group">
+          <input type="text" id="search-input" placeholder="Buscar por título o ubicación..." class="form-control input-search">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Propiedad</th>
+              <th>Tipo</th>
+              <th>Precio</th>
+              <th>Estado</th>
+              <th>Catálogo Comercial</th>
+              <th>Portafolio</th>
+              <th class="text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="properties-list">
+            <!-- Renderizado dinámico desde JS con la estructura de switch -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para Crear / Editar -->
+  <div id="property-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-title">Nueva Propiedad</h3>
+          <p class="modal-subtitle">Ingrese los datos generales, visibilidad y multimedia.</p>
+        </div>
+        <button id="btn-close-modal" class="btn-icon" aria-label="Cerrar modal">&times;</button>
+      </div>
+
+      <form id="property-form">
+        <input type="hidden" id="prop-id">
+
+        <div class="form-grid">
+          <!-- Título -->
+          <div class="form-group full-width">
+            <label for="prop-title">Título de la propiedad</label>
+            <input type="text" id="prop-title" class="form-control" placeholder="Ej. Residencia Lomas de San Francisco" required>
+          </div>
+
+          <!-- Tipo y Estado -->
+          <div class="form-group">
+            <label for="prop-type">Tipo de Propiedad</label>
+            <div class="select-wrapper">
+              <select id="prop-type" class="form-control" required>
+                <option value="Casa">Casa</option>
+                <option value="Apartamento">Apartamento</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Comercial">Comercial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prop-status">Estado Comercial</label>
+            <div class="select-wrapper">
+              <select id="prop-status" class="form-control" required>
+                <option value="Disponible">Disponible</option>
+                <option value="En reserva">En reserva</option>
+                <option value="Vendido">Vendido</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Ubicación y Precio -->
+          <div class="form-group">
+            <label for="prop-location">Ubicación</label>
+            <input type="text" id="prop-location" class="form-control" placeholder="Ej. Antiguo Cuscatlán, La Libertad" required>
+          </div>
+
+          <div class="form-group">
+            <label for="prop-price">Precio de Venta / Renta</label>
+            <input type="text" id="prop-price" class="form-control" placeholder="Ej. $350,000" required>
+          </div>
+
+          <!-- Specs -->
+          <div class="form-group">
+            <label for="prop-bedrooms">Habitaciones</label>
+            <input type="number" id="prop-bedrooms" class="form-control" min="0" value="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="prop-bathrooms">Baños</label>
+            <input type="number" id="prop-bathrooms" class="form-control" min="0" step="0.5" value="0" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="prop-area">Área de Construcción / Terreno</label>
+            <input type="text" id="prop-area" class="form-control" placeholder="Ej. 280 m² / 400 v²" required>
+          </div>
+
+          <!-- Descripción -->
+          <div class="form-group full-width">
+            <label for="prop-description">Descripción Breve</label>
+            <textarea id="prop-description" class="form-control" rows="3" placeholder="Redacte una visión general de la propiedad..."></textarea>
+          </div>
+
+          <!-- Visibilidad (Switches Interactivos en Modal) -->
+<div class="form-group full-width">
+  <label class="section-label">Configuración de Visibilidad</label>
+  <div class="form-toggles-wrapper">
+    
+    <label class="toggle-card">
+      <div class="switch">
+        <input type="checkbox" id="prop-active-properties">
+        <span class="toggle-slider"></span>
+      </div>
+      <span class="toggle-text">Mostrar en Catálogo Activo</span>
+    </label>
+
+    <label class="toggle-card">
+      <div class="switch">
+        <input type="checkbox" id="prop-active-portfolio">
+        <span class="toggle-slider"></span>
+      </div>
+      <span class="toggle-text">Mostrar en Portafolio Proyectos</span>
+    </label>
+
+  </div>
+</div>
+
+          <!-- Galería Multimedia -->
+<div class="form-group full-width media-section">
+
+  <div class="media-header">
+
+    <div>
+      <label class="media-title">
+        Galería Multimedia
+      </label>
+
+      <span class="media-subtitle">
+        Máximo 15 imágenes o videos
+      </span>
+    </div>
+
+    <label
+      for="media-file-input"
+      class="btn btn-secondary btn-sm"
+    >
+      + Agregar imágenes / videos
+    </label>
+
+    <input
+      type="file"
+      id="media-file-input"
+      accept="image/*,video/*"
+      multiple
+      hidden
+    >
+
+  </div>
+
+
+  <div
+    id="media-list"
+    class="media-list"
+  >
+    <!-- Archivos seleccionados y medios existentes aparecerán aquí -->
+  </div>
+
+</div>
+        </div>
+
+        <!-- Acciones de Modal -->
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-modal" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Propiedad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
